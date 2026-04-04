@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VitalFlow</title>
+    <script>
+      (function () {
+        try {
+          var k = "vitalflow-theme";
+          var v = localStorage.getItem(k);
+          var m = v === "light" || v === "dark" || v === "system" ? v : "system";
+          var root = document.documentElement;
+          root.dataset.theme = m;
+          root.classList.remove("theme-light", "theme-dark", "theme-system");
+          root.classList.add("theme-" + m);
+          var dark =
+            m === "dark" ||
+            (m === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          root.classList.toggle("effective-dark", dark);
+          root.style.colorScheme = dark ? "dark" : "light";
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
